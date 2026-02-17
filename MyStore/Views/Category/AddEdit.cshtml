@@ -1,0 +1,35 @@
+﻿@model CategoryVM;
+
+@{
+    var title = Model.CategoryId == 0 ? "Add New Category" : "Edit Category";
+    var btnAction = Model.CategoryId == 0 ? "Create" : "Update";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2>@title</h2>
+        <hr />
+        <form action="/Category/AddEdit" method="post">
+            <input type="hidden" asp-for="CategoryId" />
+            <div class="mb-3">
+                <label  class="form-label">Name</label>
+                <input type="text" class="form-control" asp-for="Name" autocomplete="off">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+
+            @if(ViewBag.Message != null)
+            { 
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.Message
+                </div>
+            }
+
+            <div class="d-grid gap-2 d-md-block mt-4">
+                <button class="btn btn-primary" type="submit">@btnAction</button>
+                <a asp-action="Index" class="btn btn-secondary mt-2">Back to List</a>
+
+            </div>
+            
+        </form>
+    </div>
+</div>
